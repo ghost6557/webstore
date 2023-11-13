@@ -1,0 +1,43 @@
+.model_desc {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   flex: 5 1 75%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-rows: minmax(10vw, auto) minmax(10vw, auto);
+  justify-content: center;
+  gap: 1%;
+}
+
+.desc {
+  grid-column: span 2;
+}
+
+.rom-price {
+  display: flex;
+  gap: 3em;
+}
+
+.rom-variant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.15em solid black;
+  min-width: 4em;
+  min-height: 2em;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.sub_wrapper {
+  display: grid;
+  grid-template-columns: 0.9fr 0.1fr;
+  grid-template-rows: auto auto;
+  max-width: 70vh;
+  // grid-template-rows: minmax(10vw, auto) minmax(10vw, auto);
+}

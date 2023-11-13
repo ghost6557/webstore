@@ -1,6 +1,78 @@
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // padding-left: 5em;
+}
+
 .menu {
   display: flex;
-  justify-content: right;
-  gap: 30px;
-  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  height: 3em;
+  list-style: none;
+  gap: 3em;
+  // padding: 20px;
+}
+
+.nav-links__item {
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  // min-width: 10em;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.user-info {
+  width: 10em;
+  // display: flex;
+  // position: relative;
+}
+
+.user-info__actions {
+  position: absolute;
+  background-color: blanchedalmond;
+  // top: 2.5em;
+
+  // border-radius: 0.5em;
+  // border: 0.1em solid #ebeff2;
+}
+
+.user-info__action {
+  display: flex;
+  align-items: center;
+  min-height: 2em;
+  border: 0.1em solid #ebeff2;
+
+  &:hover {
+    cursor: pointer;
+    color: rgb(196, 12, 43);
+  }
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+
+.cart-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0.8em;
+  bottom: 1.2em;
+  z-index: 4;
+  background-color: blanchedalmond;
+  border-radius: 50%;
+  height: 85%;
+  width: 85%;
+  font-size: 0.8em;
 }

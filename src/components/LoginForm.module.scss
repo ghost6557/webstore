@@ -1,0 +1,44 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.3em;
+}
+
+.container-btn-submit {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 100%;
+}
+
+.btn-submit {
+  width: 80%;
+  height: 3em;
+  background-color: rgb(21, 158, 163);
+  color: white;
+  font-size: 1em;
+  font-weight: 550;
+  border: none;
+  border-radius: 0.5em;
+
+  &:hover {
+    background-color: rgb(3, 72, 75);
+    cursor: pointer;
+  }
+}
+
+.form-footer {
+  text-align: start;
+  width: 80%;
+}
+
+.form-footer__action {
+  color: rgb(21, 158, 163);
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(196, 12, 43);
+  }
+}

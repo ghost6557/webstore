@@ -1,8 +1,24 @@
 .content {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 20fr 80fr;
+  gap: 2em;
+  /* Будет создано 3 ряда */
+  // grid-template-rows: 250px 10vw 15rem;
 }
 
-.page {
-  flex-grow: 3;
+// .page {
+//   flex: 1 1 50%;
+// }
+
+.main-content {
+  // display: grid;
+  // flex: 1 1 100%;
+  // justify-content: center;
+}
+
+.body {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }

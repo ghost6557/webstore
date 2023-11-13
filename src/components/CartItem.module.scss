@@ -1,0 +1,60 @@
+$primary-color: rebeccapurple;
+
+.item {
+  display: grid;
+  grid-template-columns: 0.6fr 0.2fr 0.2fr 0.1fr;
+  column-gap: 1.5em;
+  grid-template-rows: auto;
+  border: 0.1em solid #ebeff2;
+  padding: 0.5em 0 0.5em 0.5em;
+}
+
+.item_name {
+  display: flex;
+  // align-items: center;
+  // width: 100%;
+}
+
+.change_quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15%;
+}
+
+.std_checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: white;
+  margin-left: 0.5em;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+
+  &::before {
+    content: '';
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em $primary-color;
+  }
+
+  &:checked::before {
+    transform: scale(1);
+  }
+
+  &:focus {
+    outline: max(2px, 0.15em) solid;
+    outline-offset: max(2px, 0.15em);
+  }
+}
