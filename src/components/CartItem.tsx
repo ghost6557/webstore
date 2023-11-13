@@ -73,50 +73,6 @@ const CartItem = ({
       setSelectAll(undefined);
       setIsChecked(checkboxVal);
       dispatch(updateItemsList({ val: checkboxVal, id: checkboxId }));
-
-      // let updatedList: any[] = [];
-      // if (checkboxList.length) {
-      //   const matchedCheckbox = checkboxList.find(
-      //     (cbx: any) => cbx.id === checkboxId
-      //   );
-
-      //   if (matchedCheckbox) {
-      //     const cbxListWithoutMatched = checkboxList.filter(
-      //       (cbx) => cbx.id !== checkboxId
-      //     );
-      //     // matchedCheckbox.val = checkboxVal;
-      //     updatedList = [
-      //       ...cbxListWithoutMatched,
-      //       { id: matchedCheckbox.id, val: !matchedCheckbox.val },
-      //     ];
-      //   } else {
-      //     updatedList = [...checkboxList, { id: checkboxId, val: checkboxVal }];
-      //   }
-      // } else if (!checkboxList.length) {
-      //   updatedList = [...checkboxList, { id: checkboxId, val: checkboxVal }];
-      // }
-      // console.log(updatedList);
-      // // return updatedList;
-      // dispatch(updateItemsList(updatedList));
-
-      // setCheckboxList((list: any[]): any[] => {
-      //   let updatedList: any[] = [];
-      //   if (list.length) {
-      //     const matchedCheckbox = list.find(
-      //       (cbx: any) => cbx.id === checkboxId
-      //     );
-      //     if (matchedCheckbox) {
-      //       matchedCheckbox.val = checkboxVal;
-      //       updatedList = list;
-      //     } else {
-      //       updatedList = [...list, { id: checkboxId, val: checkboxVal }];
-      //     }
-      //   } else if (!list.length) {
-      //     updatedList = [...list, { id: checkboxId, val: checkboxVal }];
-      //   }
-      //   console.log(updatedList);
-      //   return updatedList;
-      // });
     },
     [dispatch, setSelectAll]
   );
@@ -143,56 +99,6 @@ const CartItem = ({
     dispatch(toggleCartModal());
     document.body.style.overflow = 'unset';
   };
-
-  // e,
-  // }: // checkboxVal,
-  // checkboxId,
-  // {
-  // e?: React.ChangeEvent<HTMLInputElement>;
-  // checkboxVal?: boolean;
-  // checkboxId?: string;
-
-  // const handleCheckboxChangeByClick = (
-  //   e: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   // e.preventDefault();
-  //   const target = e?.target as HTMLInputElement;
-
-  //   console.log(target.id);
-
-  //   // if (selectAll !== undefined) {
-  //   //   setIsChecked((isChecked) => selectAll);
-  //   // } else {
-  //   handleCheckboxChange(!isChecked, target.id);
-
-  //   // setSelectAll(undefined);
-  //   // setIsChecked((isChecked) => !isChecked);
-  //   // setCheckboxList((list: any[]): any[] => {
-  //   //   let updatedList: any[] = [];
-  //   //   if (list.length) {
-  //   //     const matchedCheckbox = list.find((cbx: any) => cbx.id === target.id);
-  //   //     if (matchedCheckbox) {
-  //   //       matchedCheckbox.val = !matchedCheckbox.val;
-  //   //       updatedList = list;
-  //   //     } else {
-  //   //       updatedList = [...list, { id: target.id, val: !isChecked }];
-  //   //     }
-  //   //   } else if (!list.length) {
-  //   //     updatedList = [...list, { id: target.id, val: !isChecked }];
-  //   //   }
-  //   //   console.log(updatedList);
-  //   //   return updatedList;
-  //   // });
-  // };
-
-  // const cbxListWithoutMatched = list.filter(
-  //   (cbx: any) => cbx.id !== target.id
-  // );
-
-  // updatedList = [
-  //   ...cbxListWithoutMatched,
-  //   { id: matchedCheckbox.id, val: !matchedCheckbox.val },
-  // ];
 
   const handleChangeQuantity = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -279,7 +185,8 @@ const CartItem = ({
             style={{ flexGrow: '2' }}
             onClick={handleClick}
             href={`/${data.brand}/phones/${data['m_id']}`}
-            // className={styles.item_name}
+            scroll={true}
+            className={styles.item_name}
           >
             <div
               style={{

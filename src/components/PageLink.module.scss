@@ -1,0 +1,21 @@
+.regular-page {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  margin: 0.5em;
+  padding: 0.12em 0.4em 0.12em 0.4em;
+
+  &:not(.current-page):hover {
+    background-color: blanchedalmond;
+    // background-color: rgb(21, 158, 163);
+    // color: rgb(3, 72, 75);
+    border-radius: 60%;
+  }
+}
+.current-page {
+  cursor: default;
+  border: 0.15em solid black;
+  border-radius: 60%;
+
+  //   padding: 0.12em 0.4em 0.12em 0.4em;
+}

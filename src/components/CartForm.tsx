@@ -265,28 +265,25 @@ const CartForm = () => {
                 id="cart"
                 containerLabel="Корзина"
               >
-                {/* <div */}
-                {/* style={{
-                    flexGrow: '2',
-                    //   overflow: 'auto',
-                    //   display: 'flex',
-                    //   flexDirection: 'column',
-                    //   height: '100%',
-                    //   gap: '2em',
-                    //   marginLeft: '1em',
-                  }}
-                > */}
                 <div className={styles.global_cart_actions}>
                   <div>
-                    <button onClick={handleSelectAll}>Выбрать все</button>
+                    <button
+                      className={styles['btn-check-all']}
+                      onClick={handleSelectAll}
+                    >
+                      Выбрать все
+                    </button>
                   </div>
                   <div>
-                    <button onClick={handleDeleteChecked}>
+                    <button
+                      className={styles['btn-delete-all']}
+                      onClick={handleDeleteChecked}
+                    >
                       Удалить выбранные
                     </button>
                   </div>
                 </div>
-                {/* <div> */}
+
                 <div className={styles.container_cart_products}>
                   {cartData.map((item: any) => (
                     <CartItem
@@ -299,8 +296,6 @@ const CartForm = () => {
                     ></CartItem>
                   ))}
                 </div>
-                {/* </div> */}
-                {/* </div> */}
               </CollapsibleWrapper>
 
               <CollapsibleWrapper
@@ -342,6 +337,7 @@ const CartForm = () => {
                 {(containersState.isCartOpen ||
                   containersState.isDeliveryOpen) && (
                   <button
+                    className={styles['btn-next']}
                     onClick={() => {
                       containersState.isCartOpen
                         ? handleContainerToggle('deliveryInfo')

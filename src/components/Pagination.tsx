@@ -11,7 +11,7 @@ const Pagination = ({ path, totalPages, curPage }: PaginationData<any>) => {
   for (let i = 1; i <= +totalPages; i++) {
     liArray.push(
       <li key={i}>
-        <PageLink path={path} pageNum={i} />
+        <PageLink path={path} pageNum={i} curPage={curPage === i || false} />
       </li>
     );
   }

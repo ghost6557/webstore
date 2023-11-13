@@ -136,7 +136,11 @@ const Navbar = () => {
           <li className={styles['nav-links__item']}>
             {!session && (
               <div className={styles['user-info']}>
-                <button id="login_trigger" onClick={handleModalClick}>
+                <button
+                  className={styles['btn-login']}
+                  id="login_trigger"
+                  onClick={handleModalClick}
+                >
                   Войти
                 </button>
               </div>

@@ -26,10 +26,11 @@ interface DataPrice {
 }
 
 const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
-  const [price, setPrice] = useState(modelData['rom_price'][0].price);
-  const [modelVariantId, setModelVariantId] = useState(
-    modelData['rom_price'][0].msp_id
-  );
+  const firstElement = modelData['rom_price']
+    .sort((a, b) => a.price - b.price)
+    .at(0);
+  const [price, setPrice] = useState(firstElement?.price!);
+  const [modelVariantId, setModelVariantId] = useState(firstElement?.msp_id);
   // useState(modelData['rom_price'][0]['price']);
 
   const handleChangeRom = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -37,7 +38,7 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
     const target = e.currentTarget as HTMLDivElement;
     const dataPrice: any = target.dataset?.price;
     const dataVariant: any = target.dataset?.variant;
-    // console.log(target.dataset);
+    console.log(target.dataset);
     setPrice(dataPrice);
     setModelVariantId(dataVariant);
   };
@@ -49,7 +50,7 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
       }`}</h1>
 
       <div className={styles.wrapper}>
-        <div className={styles['model_desc']}>
+        <div className={styles['model-desc']}>
           <Image
             src={modelData['img_url']}
             width={300}
@@ -59,7 +60,7 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
         </div>
 
         <div className={styles.sub_wrapper}>
-          <ul style={{ listStyle: 'none' }} className={styles['rom-price']}>
+          <ul className={styles['rom-price']}>
             {modelData['rom_price']
               .sort((a, b) => a.price - b.price)
               .map((variant) => (
@@ -67,7 +68,11 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
                   data-price={variant.price}
                   data-variant={variant['msp_id']}
                   onClick={handleChangeRom}
-                  className={styles['rom-variant']}
+                  className={`${styles['rom-variant']} ${
+                    parseInt(modelVariantId as any) === variant.msp_id
+                      ? styles['current-rom']
+                      : ''
+                  }`}
                   key={variant['msp_id']}
                 >
                   <li>{variant.rom}</li>
@@ -81,13 +86,23 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
               flexDirection: 'column',
               justifyContent: 'space-between',
               alignItems: 'center',
+              width: '12em',
+              height: '6em',
+              gap: '1em',
             }}
           >
-            <div>{`${new Intl.NumberFormat('ru').format(price)} ₽`}</div>
-            <button>Добавить в корзину</button>
+            <div
+              style={{
+                fontWeight: '800',
+                fontSize: '1.5em',
+              }}
+            >{`${new Intl.NumberFormat('ru').format(price)} ₽`}</div>
+            <button className={styles['btn-add-to-cart']}>
+              Добавить в корзину
+            </button>
           </div>
 
-          <ul>
+          <ul className={styles['model-desc']}>
             <li>{`Бренд: ${
               modelData.brand[0].toUpperCase() + modelData.brand.slice(1)
             }`}</li>
@@ -106,7 +121,7 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
         </div> */}
 
         <div className={styles.desc}>
-          <p style={{ width: '60%' }}>{modelData['desc']}</p>
+          <p style={{ width: '52%' }}>{modelData['desc']}</p>
         </div>
         {/* <pre>{JSON.stringify(modelData, null, 2)}</pre> */}
       </div>

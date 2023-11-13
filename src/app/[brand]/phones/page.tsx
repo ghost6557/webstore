@@ -43,7 +43,7 @@ export default function Page() {
   const pathname = usePathname();
   console.log(pathname);
   const searchParams = useSearchParams()!;
-  const page = searchParams.get('page');
+  const page = parseInt(searchParams.get('page') as string);
   console.log(searchParams.get('page'));
   const userId = session?.user?.id;
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -95,7 +95,7 @@ export default function Page() {
   return (
     <div className={styles.page}>
       {/* <h1>Hello, Next.js!</h1> */}
-      {!data && <h2>Loading...</h2>}
+      {!data && <h2>Загрузка...</h2>}
       {data && (
         <div>
           <h1>

@@ -1,3 +1,35 @@
-.phone_card_header {
-  // text-align: center;
+.phone-card {
+  display: flex;
+  width: 20em;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 3em;
+
+  &:hover {
+    transition-duration: 150ms;
+    transition-timing-function: ease-in-out;
+    box-shadow: 1em 1em 1em 1em rgba(0, 0, 0, 0.5);
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: rgb(21, 158, 163);
+  }
+}
+
+.btn-add-to-cart {
+  background-color: rgb(240, 184, 101);
+  border-radius: 80%;
+  width: 3.5em;
+  height: 3.5em;
+
+  &:hover {
+    background-color: rgb(241, 162, 43);
+    cursor: pointer;
+  }
 }

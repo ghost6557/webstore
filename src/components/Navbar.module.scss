@@ -76,3 +76,15 @@
   width: 85%;
   font-size: 0.8em;
 }
+
+.btn-login {
+  background-color: rgb(240, 184, 101);
+  border-radius: 60%;
+  width: 4em;
+  height: 4em;
+
+  &:hover {
+    background-color: rgb(241, 162, 43);
+    cursor: pointer;
+  }
+}

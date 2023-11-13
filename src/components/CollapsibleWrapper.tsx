@@ -37,14 +37,7 @@ const CollapsibleWrapper = ({
         // marginLeft: '1em',
       }}
     >
-      <div
-        onClick={() => visibilityChanger(id)}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '1em',
-        }}
-      >
+      <div onClick={() => visibilityChanger(id)} className={styles['wrapper']}>
         <div
           style={{
             display: 'flex',

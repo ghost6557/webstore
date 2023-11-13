@@ -1,9 +1,27 @@
 import Link from 'next/link';
+import styles from './PageLink.module.scss';
 
-const PageLink = ({ pageNum, path }: { pageNum: number; path: string }) => {
+const PageLink = ({
+  pageNum,
+  path,
+  curPage,
+}: {
+  pageNum: number;
+  path: string;
+  curPage: boolean;
+}) => {
   return (
-    <div style={{ border: '0.1em solid black' }}>
-      <Link href={`${path}?page=${pageNum}`}>{pageNum}</Link>
+    <div>
+      <Link
+        className={
+          curPage
+            ? `${styles['current-page']} ${styles['regular-page']}`
+            : styles['regular-page']
+        }
+        href={`${path}?page=${pageNum}`}
+      >
+        {pageNum}
+      </Link>
     </div>
   );
 };
