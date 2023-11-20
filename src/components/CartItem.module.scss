@@ -2,17 +2,17 @@ $primary-color: rebeccapurple;
 
 .item {
   display: grid;
-  grid-template-columns: 0.6fr 0.2fr 0.2fr 0.1fr;
-  column-gap: 1.5em;
+  grid-template-columns: 0.55fr 0.15fr 0.2fr 0.1fr;
+  column-gap: 1.5rem;
   grid-template-rows: auto;
-  border: 0.1em solid #ebeff2;
-  padding: 0.5em 0 0.5em 0.5em;
+  border: 0.1rem solid #ebeff2;
+  padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
 .item_name {
+  flex-grow: 2;
   text-decoration: none;
   color: black;
-  // font-size: 2em;
   font-weight: 600;
 
   &:hover {
@@ -20,38 +20,61 @@ $primary-color: rebeccapurple;
   }
 }
 
+.label-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
 .change_quantity {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  // gap: 1rem;
+  width: 100%;
+}
+
+.link-container {
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.price-container {
+  display: flex;
   justify-content: center;
-  gap: 15%;
+  align-items: center;
+  min-width: 100%;
 }
 
 .std_checkbox {
   -webkit-appearance: none;
   appearance: none;
   background-color: white;
-  margin-left: 0.5em;
+  margin-left: 0.5rem;
   font: inherit;
   color: currentColor;
-  width: 1.15em;
-  height: 1.15em;
-  border: 0.15em solid currentColor;
-  border-radius: 0.15em;
-  transform: translateY(-0.075em);
-
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 0.15rem solid currentColor;
+  border-radius: 0.15rem;
+  transform: translateY(-0.075rem);
   display: grid;
   place-content: center;
 
   &::before {
     content: '';
-    width: 0.65em;
-    height: 0.65em;
+    width: 0.65rem;
+    height: 0.65rem;
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
     transform: scale(0);
     transform-origin: bottom left;
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em $primary-color;
+    box-shadow: inset 1rem 1rem $primary-color;
   }
 
   &:checked::before {
@@ -59,8 +82,12 @@ $primary-color: rebeccapurple;
   }
 
   &:focus {
-    outline: max(2px, 0.15em) solid;
-    outline-offset: max(2px, 0.15em);
+    outline: max(2px, 0.15rem) solid;
+    outline-offset: max(2px, 0.15rem);
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -70,5 +97,17 @@ $primary-color: rebeccapurple;
 
   &:hover {
     color: rgb(21, 158, 163);
+  }
+}
+
+.btn-delete-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-qty-change {
+  &:hover {
+    cursor: pointer;
   }
 }

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-
 import styles from './OrderItem.module.scss';
 
 interface Item<T> {
@@ -17,39 +16,25 @@ interface Item<T> {
 
 const OrderItem = ({ data }: { data: Item<string> }) => {
   return (
-    <div className={styles['item_container']}>
-      <div className={styles['item_desc']}>
+    <div className={styles['item-container']}>
+      <div className={styles['item-desc']}>
         <Image
-          className={styles.item_img}
+          className={styles['item-img']}
           src={data['img_url']}
           alt="iPhone image"
           width={600}
           height={600}
         />
-        <div className={styles.item_name}>{`${
+        <div className={styles['item-name']}>{`${
           data.brand[0].toUpperCase() + data.brand.slice(1)
         } ${data['model_name']} ${data['storage']}`}</div>
       </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          // margin: '2em',
-        }}
-      >
+      <div className={styles['item-amount']}>
         <span>{data['amount']} шт</span>
       </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: '2em',
-        }}
-      >
+      <div className={styles['item-price']}>
         <span>{`${new Intl.NumberFormat('ru').format(data['price'])} ₽`}</span>
       </div>
     </div>

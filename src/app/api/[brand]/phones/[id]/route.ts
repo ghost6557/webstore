@@ -10,7 +10,6 @@ export async function GET(
   { params }: { params: { brand: string; id: string } }
 ) {
   console.log(params);
-  //   const slug = params.slug;
   const { brand, id } = params;
   const data = await prisma.$queryRaw`select pd.*
                                             ,pm.model_name

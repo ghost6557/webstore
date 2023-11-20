@@ -27,38 +27,25 @@ const OrdersHistory = () => {
       );
       setOrdersData(fetchedData);
       setContainersState(Ids);
-      // setContainersState(state =>
     };
     fetchData();
   }, [session?.user?.id]);
 
   const handleContainerToggle = (id: string): void => {
-    console.log(id);
-    // const NumId: string = id;
     setContainersState((state) => ({
       ...state,
       [id]: !state[id],
     }));
   };
 
-  ordersData && console.log(ordersData);
-  console.log(containersState);
-
   return (
     <>
       {ordersData && (
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            margin: '0 0 2em 2em',
-            // overflow: 'scroll',
-          }}
-        >
-          <div className={styles.order_history_header}>
+        <div className={styles['orders-history-container']}>
+          <div className={styles['order-history-header']}>
             <h1>Заказы</h1>
           </div>
-          <div className={styles['order_history']}>
+          <div className={styles['order-history']}>
             {ordersData
               .filter(
                 (item: any, idx: any) =>
@@ -83,14 +70,16 @@ const OrdersHistory = () => {
                       )
                   )}
                 >
-                  {ordersData
-                    .filter((ordItem) => ordItem['id'] === item['id'])
-                    .map((ordItem) => (
-                      <OrderItem
-                        key={ordItem['msp_id']}
-                        data={ordItem}
-                      ></OrderItem>
-                    ))}
+                  <div className={styles['order-container']}>
+                    {ordersData
+                      .filter((ordItem) => ordItem['id'] === item['id'])
+                      .map((ordItem) => (
+                        <OrderItem
+                          key={ordItem['msp_id']}
+                          data={ordItem}
+                        ></OrderItem>
+                      ))}
+                  </div>
                 </CollapsibleWrapper>
               ))}
           </div>

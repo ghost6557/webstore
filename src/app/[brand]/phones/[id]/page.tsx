@@ -12,7 +12,7 @@ export default function Page() {
   const data: any[] | any = useFetchData(`${brand}/phones/${id}`);
   console.log(data);
 
-  useEffect(() => window.document.scrollingElement?.scrollTo(0, 0), []);
+  // useEffect(() => window.document.scrollingElement?.scrollTo(0, 0), []);
 
   return (
     <>

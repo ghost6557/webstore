@@ -1,8 +1,5 @@
-// import { getServerSession } from 'next-auth';
-// import { authOptions } from '@/utils/auth';
-import { Prisma } from '@prisma/client';
-import prismaClient from '@/utils/initPrisma';
 import { NextResponse } from 'next/server';
+import prismaClient from '@/utils/initPrisma';
 
 (BigInt.prototype as any).toJSON = function () {
   return this.toString();
@@ -36,11 +33,10 @@ export async function POST(req: Request) {
       comment: deliveryInfo.comment,
       delivery_address: deliveryInfo.deliveryAddress,
       order_content: itemsDetails,
-      //  as Prisma.JsonArray,
     },
   });
 
-  return NextResponse.json({});
+  return NextResponse.json(insertedOrder);
 }
 
 export async function GET(
@@ -48,11 +44,6 @@ export async function GET(
   { params }: { params: { slug: string[] } }
 ) {
   const slug = params.slug[0];
-  // console.log('slug', slug);
-  // const reqData = (await req.json()) as {
-  //   userId: string;
-  // };
-  // console.log(reqData);
 
   const data: any[] | any = await prismaClient.$queryRaw`select * 
                                                          from (select uo.*
@@ -67,12 +58,6 @@ export async function GET(
                                                          where 1 = 1 
                                                            and t.user_id = ${slug}
                                                          order by id desc`;
-
-  // await prisma['user_cart'].findFirst({
-  //   where: { user_id: slug },
-  // });
-
-  // console.log('cart', data);
 
   return NextResponse.json(data);
 }

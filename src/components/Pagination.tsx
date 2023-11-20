@@ -1,4 +1,5 @@
 import PageLink from './PageLink';
+import styles from './Pagination.module.scss';
 
 interface PaginationData<T> {
   path: T;
@@ -15,20 +16,7 @@ const Pagination = ({ path, totalPages, curPage }: PaginationData<any>) => {
       </li>
     );
   }
-  return (
-    <ul
-      style={{
-        display: 'flex',
-        gap: '2em',
-        listStyle: 'none',
-        justifyContent: 'center',
-      }}
-    >
-      {liArray}
-      {/* <p>{'totalPages ' + totalPages}</p>
-      <p>{'curPage ' + curPage}</p> */}
-    </ul>
-  );
+  return <ul className={styles['pages-links']}>{liArray}</ul>;
 };
 
 export default Pagination;

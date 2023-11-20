@@ -1,7 +1,11 @@
 import Image from 'next/image';
 import styles from '@/components/ModelDetails.module.scss';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
+import { fetchCartItemsCountByUserId } from '@/store/slices/cartItemsCountSlice';
 interface Model<T> {
   pd_id: T;
   m_id: number;
@@ -21,26 +25,51 @@ interface Model<T> {
   rom_price: { rom: string; price: number; msp_id: number }[];
 }
 
-interface DataPrice {
-  price: number;
-}
-
 const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
   const firstElement = modelData['rom_price']
     .sort((a, b) => a.price - b.price)
     .at(0);
   const [price, setPrice] = useState(firstElement?.price!);
   const [modelVariantId, setModelVariantId] = useState(firstElement?.msp_id);
-  // useState(modelData['rom_price'][0]['price']);
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
   const handleChangeRom = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     const target = e.currentTarget as HTMLDivElement;
     const dataPrice: any = target.dataset?.price;
     const dataVariant: any = target.dataset?.variant;
-    console.log(target.dataset);
+
     setPrice(dataPrice);
     setModelVariantId(dataVariant);
+  };
+
+  const handleAddToCart = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const cartDetails = [
+      {
+        userId,
+        product: { modelVariantId: +modelVariantId!, amount: 1 },
+        cartAction: 'ADD',
+      },
+    ];
+
+    const res = await fetch('/api/cart', {
+      method: 'POST',
+      body: JSON.stringify(cartDetails),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (userId) {
+      dispatch(fetchCartItemsCountByUserId(userId));
+    }
   };
 
   return (
@@ -59,7 +88,7 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
           />
         </div>
 
-        <div className={styles.sub_wrapper}>
+        <div className={styles['sub-wrapper']}>
           <ul className={styles['rom-price']}>
             {modelData['rom_price']
               .sort((a, b) => a.price - b.price)
@@ -80,24 +109,14 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
               ))}
           </ul>
 
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '12em',
-              height: '6em',
-              gap: '1em',
-            }}
-          >
+          <div className={styles['container-add-to-cart']}>
             <div
-              style={{
-                fontWeight: '800',
-                fontSize: '1.5em',
-              }}
+              className={styles['container-add-to-cart__price']}
             >{`${new Intl.NumberFormat('ru').format(price)} ₽`}</div>
-            <button className={styles['btn-add-to-cart']}>
+            <button
+              onClick={handleAddToCart}
+              className={styles['btn-add-to-cart']}
+            >
               Добавить в корзину
             </button>
           </div>
@@ -116,14 +135,9 @@ const ModelDetails = ({ modelData }: { modelData: Model<string> }) => {
           </ul>
         </div>
 
-        {/* <div>
-          
-        </div> */}
-
-        <div className={styles.desc}>
-          <p style={{ width: '52%' }}>{modelData['desc']}</p>
+        <div className={styles['desc-container']}>
+          <p className={styles['desc-container__info']}>{modelData['desc']}</p>
         </div>
-        {/* <pre>{JSON.stringify(modelData, null, 2)}</pre> */}
       </div>
     </div>
   );

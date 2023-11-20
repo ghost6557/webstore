@@ -6,7 +6,6 @@ export const fetchCartItemsCountByUserId = createAsyncThunk(
   async (userId: string) => {
     const res = await fetch(`/api/cart/${userId}?type=getCount`);
     const data = await res.json();
-    // console.log('dfhdfh ' + data);
     return data;
   }
 );
@@ -17,7 +16,6 @@ export const cartItemsCountSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCartItemsCountByUserId.fulfilled, (state, action) => {
-      //   console.log(action.payload);
       state.itemsCount = action.payload;
     });
   },

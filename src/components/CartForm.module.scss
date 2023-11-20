@@ -1,66 +1,76 @@
-.cart_form {
+.order-form {
+  width: 100%;
+  height: 100%;
+  border-radius: 2%;
+  background-color: rgb(248, 232, 232);
+}
+
+.cart-form-container {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 0.8fr 0.2fr;
-  // grid-template-rows: minmax(10vw, auto) minmax(10vw, auto);
   align-items: flex-start;
   justify-content: space-around;
   width: 100%;
-  height: 85%;
-  gap: 1em;
-  // overflow-y: auto;
+  height: 90%;
+  padding-left: 2%;
 }
 
-.container_cart_products {
+.cart-form {
   display: flex;
   flex-direction: column;
-  // grid-template-columns: 0.4fr 0.2fr 0.2fr 0.2fr;
-  // grid-template-rows: minmax(10vw, auto) minmax(10vw, auto);
-
-  // align-items: flex-star;
-  // justify-content: center;
-  // gap: 0.01em;
-  width: 100%;
   height: 100%;
-  // overflow-y: scroll;
+  overflow: auto;
+  gap: 4%;
 }
 
-.order_details {
+.cart-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: white;
+}
+
+.container-cart-products {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-details {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 1em;
-  height: 100%;
-  width: 100%;
+  gap: 1rem;
 }
 
 .itog {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // line-height: 20px;
-  width: 80%;
+  width: 90%;
 }
 
-.cart_header {
+.cart-header {
   display: flex;
-  width: 95%;
-  // margin-bottom: 2em;
+  padding-left: 2%;
 }
 
-.global_cart_actions {
+.global-cart-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
 .btn-check-all {
+  color: white;
   background-color: rgb(11, 212, 101);
   border-radius: 4%;
-  width: 12em;
-  height: 3.5em;
+  width: 12rem;
+  height: 3.5rem;
   font-weight: 600;
+  font-size: 1rem;
+  border: 0;
 
   &:hover {
     background-color: rgb(25, 173, 104);
@@ -69,11 +79,14 @@
 }
 
 .btn-delete-all {
+  color: white;
   background-color: rgb(240, 106, 101);
   border-radius: 4%;
-  width: 12em;
-  height: 3.5em;
+  width: 12rem;
+  height: 3.5rem;
   font-weight: 600;
+  font-size: 1rem;
+  border: 0;
 
   &:hover {
     background-color: rgb(241, 73, 43);
@@ -81,15 +94,30 @@
   }
 }
 
+.btn-next-container {
+  width: 90%;
+}
+
 .btn-next {
-  background-color: rgb(62, 231, 127);
+  color: white;
+  background-color: rgb(159, 100, 218);
   border-radius: 4%;
-  width: 15em;
-  height: 3.5em;
+  width: 100%;
+  height: 3.5rem;
   font-weight: 600;
+  font-size: 1rem;
+  border: 0;
 
   &:hover {
-    background-color: rgb(9, 143, 65);
+    background-color: rebeccapurple;
     cursor: pointer;
   }
+}
+
+.error-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  height: 100%;
 }

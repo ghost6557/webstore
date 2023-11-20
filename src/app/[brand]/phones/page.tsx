@@ -1,22 +1,13 @@
 'use client';
 
-import styles from './PageLayout.module.scss';
-import useFetchData from '@/hooks/useFetchData';
-import PhoneCard from '@/components/PhoneCard';
-import PhonesWrapper from '@/components/PhonesWrapper';
-import { useSession } from 'next-auth/react';
-import { ThunkDispatch } from '@reduxjs/toolkit';
-import { fetchCartItemsCountByUserId } from '@/store/slices/cartItemsCountSlice';
-import { useDispatch } from 'react-redux';
-import {
-  useParams,
-  useSearchParams,
-  usePathname,
-  useRouter,
-} from 'next/navigation';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+
 import Pagination from '@/components/Pagination';
 import FiltersMenu from '@/components/FiltersMenu';
+import styles from './PageLayout.module.scss';
+import PhoneCard from '@/components/PhoneCard';
+import PhonesWrapper from '@/components/PhonesWrapper';
 
 interface filter {
   brand: any[];
@@ -37,27 +28,13 @@ const initialFilters: filter = {
 };
 
 export default function Page() {
-  const params = useParams();
-  // console.log(params);
-  const { data: session } = useSession();
   const pathname = usePathname();
-  console.log(pathname);
   const searchParams = useSearchParams()!;
   const page = parseInt(searchParams.get('page') as string);
   console.log(searchParams.get('page'));
-  const userId = session?.user?.id;
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const router = useRouter();
   const phoneCategory = pathname.split('/')[1];
-  // const data: any = useFetchData(`${pathname}?page=${page}`);
-
   const [data, setData] = useState<any>();
-
-  // if (data) {
-  //   console.log(data);
-  // }
-
-  // const filtersString = '';
 
   const [filters, setFilters] = useState<filter>(initialFilters);
   console.log('filters', filters);
@@ -69,32 +46,22 @@ export default function Page() {
 
   useEffect(() => {
     let filtersString = '';
-    // let actualFilters: actFilters = {};
     for (const [key, value] of Object.entries(filters)) {
       if (value.length > 0) {
-        // filtersString += `${key}=${encodeURIComponent(JSON.stringify(value))}`;
-        // actualFilters[key] = value;
         filtersString += `&${key}=${value.join()}`;
       }
     }
-    // console.log(actualFilters);
 
     const fetchData = async () => {
-      const res = await fetch(
-        `/api${pathname}?page=${page}${filtersString}`
-        // filters: actualFilters,
-      );
+      const res = await fetch(`/api${pathname}?page=${page}${filtersString}`);
       const fetchedData = await res.json();
       setData(fetchedData);
-
-      // setReload(false);
     };
     fetchData();
   }, [filters, page, pathname]);
 
   return (
     <div className={styles.page}>
-      {/* <h1>Hello, Next.js!</h1> */}
       {!data && <h2>Загрузка...</h2>}
       {data && (
         <div>
@@ -134,7 +101,6 @@ export default function Page() {
           </div>
         </div>
       )}
-      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
 }

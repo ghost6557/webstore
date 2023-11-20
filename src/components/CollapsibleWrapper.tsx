@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import Image from 'next/image';
 import styles from './CollapsibleWrapper.module.scss';
 
 const CollapsibleWrapper = ({
@@ -18,50 +18,21 @@ const CollapsibleWrapper = ({
   visibleState: boolean;
   totalPrice?: string;
 }) => {
-  // const toggle = () => {
-  //   setOPen(!open);
-  // };
-  // const contentRef = useRef<null | HTMLDivElement>(null);
-  // const [open, setOPen] = useState(isOpen);
-
   return (
-    <div
-      id={id}
-      style={{
-        display: 'flex',
-        // overflow: 'auto',
-        flexDirection: 'column',
-        // height: '100%',
-        width: '100%',
-        gap: '2em',
-        // marginLeft: '1em',
-      }}
-    >
-      <div onClick={() => visibilityChanger(id)} className={styles['wrapper']}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <div
-            style={{
-              transform: visibleState ? 'rotate(180deg)' : 'rotate(270deg)',
-            }}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M14.03 7.97a.75.75 0 0 1 0 1.06L10 13.06 5.97 9.03a.75.75 0 0 1 1.06-1.06L10 10.94l2.97-2.97a.75.75 0 0 1 1.06 0z"
-              ></path>
-            </svg>
+    <div className={styles['wrapper']} id={id}>
+      <div
+        onClick={() => visibilityChanger(id)}
+        className={styles['container-info']}
+      >
+        <div className={styles['container-info__name']}>
+          <div className={visibleState ? styles['container-info__arrow'] : ''}>
+            <Image
+              priority
+              src="/arrow-down.svg"
+              height={15}
+              width={15}
+              alt="User icon"
+            />
           </div>
           <div>{containerLabel}</div>
         </div>
@@ -69,16 +40,10 @@ const CollapsibleWrapper = ({
       </div>
 
       <div
-        className={styles['content-parent']}
-        // ref={contentRef}
-        style={
+        className={
           visibleState
-            ? {
-                height: '100%',
-                // overflow: 'scroll',
-                // height: contentRef.current.scrollHeight + 'px',
-              }
-            : { height: '0px', overflow: 'hidden' }
+            ? styles['content-parent__visible']
+            : styles['content-parent__hidden']
         }
       >
         <div className={styles.content}>{children}</div>

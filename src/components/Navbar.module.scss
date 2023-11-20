@@ -2,51 +2,49 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // padding-left: 5em;
+}
+
+.home-link {
+  display: flex;
+  justify-content: center;
+  width: 12vw;
+  background-color: #171717;
+  padding: 1% 0 1% 0;
 }
 
 .menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 3em;
+  height: 3rem;
   list-style: none;
-  gap: 3em;
-  // padding: 20px;
+  gap: 3rem;
 }
 
 .nav-links__item {
   display: flex;
-  // justify-content: center;
   align-items: center;
   position: relative;
   width: 100%;
-  // min-width: 10em;
   &:hover {
     cursor: pointer;
   }
 }
 
 .user-info {
-  width: 10em;
-  // display: flex;
-  // position: relative;
+  width: 10rem;
 }
 
 .user-info__actions {
   position: absolute;
   background-color: blanchedalmond;
-  // top: 2.5em;
-
-  // border-radius: 0.5em;
-  // border: 0.1em solid #ebeff2;
 }
 
 .user-info__action {
   display: flex;
   align-items: center;
-  min-height: 2em;
-  border: 0.1em solid #ebeff2;
+  min-height: 2rem;
+  border: 0.1rem solid #ebeff2;
 
   &:hover {
     cursor: pointer;
@@ -67,24 +65,39 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 0.8em;
-  bottom: 1.2em;
+  left: 0.8rem;
+  bottom: 1.2rem;
   z-index: 4;
   background-color: blanchedalmond;
   border-radius: 50%;
   height: 85%;
   width: 85%;
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }
 
 .btn-login {
-  background-color: rgb(240, 184, 101);
+  color: white;
+  background-color: rgb(159, 100, 218);
   border-radius: 60%;
-  width: 4em;
-  height: 4em;
+  width: 40%;
+  min-height: 4rem;
+  border: 0;
 
   &:hover {
-    background-color: rgb(241, 162, 43);
+    background-color: rebeccapurple;
     cursor: pointer;
   }
+}
+
+.error-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  height: 100%;
+}
+
+.cart-and-error {
+  display: flex;
+  align-items: center;
 }
