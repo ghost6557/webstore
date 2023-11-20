@@ -69,55 +69,42 @@ const Sidebar = () => {
 
   return (
     <div className={styles['sidebar-container']}>
-      <aside className={styles['aside-container']}>
-        <div
-          className={styles['container-menu']}
-          onMouseLeave={(e) => handleMouseMove({ event: e })}
-        >
-          <ul className={styles['menu-list']}>
-            {menuItems.map((el, id) => (
-              <li
-                className={styles['menu-item__container']}
-                key={id}
-                onMouseEnter={(e) =>
-                  handleMouseMove({ event: e, categoryId: id })
-                }
-              >
-                <div className={styles['menu-item__label']}>{el.title}</div>
-                {/* <Link href={el.mainHref}>{el.title}</Link> */}
+      <div
+        className={styles['container-menu']}
+        onMouseLeave={(e) => handleMouseMove({ event: e })}
+      >
+        <ul className={styles['main-menu']}>
+          {menuItems.map((el, id) => (
+            <li
+              className={styles['menu-item__container']}
+              key={id}
+              onMouseEnter={(e) =>
+                handleMouseMove({ event: e, categoryId: id })
+              }
+            >
+              <div className={styles['menu-item__label']}>{el.title}</div>
+            </li>
+          ))}
+        </ul>
+
+        {showSubmenu && (
+          <ul className={styles['sub-menu']}>
+            {menuItems[categoryId].subMenu.map((val, idx) => (
+              <li className={styles['menu-item__container']} key={idx}>
+                <Link
+                  className={styles['menu-item__label']}
+                  href={`${val.href}?page=1`}
+                >
+                  {val.title}
+                </Link>
               </li>
             ))}
           </ul>
-
-          {showSubmenu && (
-            <ul className={styles['sub-menu']}>
-              {menuItems[categoryId].subMenu.map((val, idx) => (
-                <li className={styles['submenu-item__container']} key={idx}>
-                  <Link
-                    className={styles['menu-item__label']}
-                    href={`${val.href}?page=1`}
-                  >
-                    {val.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className={styles['space-filler']}></div>
-      </aside>
+        )}
+      </div>
+      <div className={styles['space-filler']}></div>
     </div>
   );
 };
 
 export default Sidebar;
-
-// {showSubmenu && category === el.title && (
-//   <ul>
-//     {el.subMenu.map((val, idx) => (
-//       <li key={idx}>
-//         <Link href={val.href}>{val.title}</Link>
-//       </li>
-//     ))}
-//   </ul>
-// )}

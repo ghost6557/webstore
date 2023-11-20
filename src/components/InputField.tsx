@@ -1,4 +1,5 @@
 import { ChangeEventHandler } from 'react';
+
 import styles from '@/components/InputField.module.scss';
 
 const InputField = ({
@@ -22,26 +23,17 @@ const InputField = ({
   return (
     <div
       className={`${
-        styles['TextField'] +
+        styles['textfield'] +
         ' ' +
-        (isEmpty ? styles['TextField--isEmpty'] : styles['TextField--isFilled'])
+        (isEmpty ? styles['textfield--isempty'] : styles['textfield--isfilled'])
       }`}
-
-      //   className={[
-      //     'TextField',
-      //     isEmpty ? 'TextField--isEmpty' : '',
-      //     !isEmpty ? 'TextField--isFilled' : '',
-      //   ].join(' ')}
-
-      //   style={style}
     >
-      <label className={styles['TextField-label']} htmlFor={id}>
+      <label className={styles['textfield-label']} htmlFor={id}>
         {label}
       </label>
       <input
-        // {...rest}
         required={required}
-        className={styles['TextField-input']}
+        className={styles['textfield-input']}
         id={id}
         value={value}
         onChange={onChange}

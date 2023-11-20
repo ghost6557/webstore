@@ -5,7 +5,7 @@ const nextConfig = {
       {
         source: '/',
         destination: '/all/phones?page=1',
-        permanent: true,
+        permanent: false,
       },
     ];
   },

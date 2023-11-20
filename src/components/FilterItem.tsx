@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, ChangeEvent } from 'react';
+
 import styles from './FilterItem.module.scss';
-import { ChangeEvent } from 'react';
 
 interface FItem<T> {
   data: {
@@ -15,7 +15,6 @@ const FilterItem = ({
 }: FItem<string>) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, id } = e.target;
-    // console.log(name, id);
     setFilters((state: any) => {
       let updatedFilter;
       const matchedFilter = state[name].find((el: any) => el === id);
@@ -37,7 +36,6 @@ const FilterItem = ({
             <input
               onChange={handleChange}
               name={name}
-              // data-val={v as any}
               className={styles.std_checkbox}
               type="checkbox"
               id={v as any}

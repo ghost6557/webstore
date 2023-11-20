@@ -1,19 +1,9 @@
 import { useSession } from 'next-auth/react';
-// import useFetchData from '@/hooks/useFetchData';
-import CartItem from './CartItem';
-import DeliveryInfoForm from './DeliveryInfoForm';
-import styles from '@/components/CartForm.module.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  toggleAuthModal,
-  toggleCartModal,
-  toggleOrdersModal,
-  getShowAuthModal,
-  getShowCartModal,
-  getShowOrdersModal,
-} from '@/store/slices/modalsSlice';
+
+import { toggleCartModal } from '@/store/slices/modalsSlice';
 import {
   updateItemsListOnDelete,
   getCheckedItems,
@@ -23,6 +13,9 @@ import {
   getCartItemsCount,
 } from '@/store/slices/cartItemsCountSlice';
 import CollapsibleWrapper from './CollapsibleWrapper';
+import CartItem from './CartItem';
+import DeliveryInfoForm from './DeliveryInfoForm';
+import styles from '@/components/CartForm.module.scss';
 
 export interface deliveryForm<T> {
   deliveryAddress: T;
@@ -46,11 +39,8 @@ const CartForm = () => {
   const [reload, setReload] = useState(false);
   const [cartData, setCartData] = useState<any[]>([]);
   const [selectAll, setSelectAll] = useState<boolean | undefined>(undefined);
-  // const [checkboxList, setCheckboxList] = useState<any[]>([]);
   const checkboxList = useSelector(getCheckedItems);
-  // const dispatch = useDispatch();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
   const [containersState, setContainersState] = useState({
     isCartOpen: true,
     isDeliveryOpen: false,
@@ -58,10 +48,8 @@ const CartForm = () => {
   const [formValues, setFormValues] = useState(initialForm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  // console.log('CART323: ' + session?.user?.id);
-
-  console.log(checkboxList);
   const itemsCount = useSelector(getCartItemsCount);
+  const formRef = useRef<any>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,17 +61,7 @@ const CartForm = () => {
     fetchData();
   }, [userId, reload]);
 
-  // const cartData: any[] | any = useFetchData(
-  //   `cart/${session?.user?.id}`,
-  //   reload
-  // );
-
-  // console.log(cartData);
-
-  // console.log(checkboxList);
   const handleContainerToggle = (id: string): void => {
-    // isCartOpen: !state.isCartOpen,
-    // isDeliveryOpen: !state.isDeliveryOpen,
     if (id === 'cart') {
       setContainersState((state) => ({
         ...state,
@@ -111,10 +89,6 @@ const CartForm = () => {
         0
       );
 
-      console.log('sumChecked ' + sumChecked);
-
-      console.log(checkboxList.length);
-
       switch (true) {
         case checkboxList.length === sumChecked:
           setSelectAll(false);
@@ -134,7 +108,6 @@ const CartForm = () => {
       const checkedList = checkboxList.filter((cbx) => Boolean(cbx.val));
       const updatedCbxList = checkboxList.filter((cbx) => !Boolean(cbx.val));
       checkedList.forEach((el) => console.log(el));
-
       const cartDetails = checkedList.map((el) => ({
         userId,
         product: {
@@ -162,16 +135,20 @@ const CartForm = () => {
     }
   };
 
-  const handleMakeOrder = async () => {
-    console.log('new order');
-    if (checkboxList.length) {
-      const filteredCartData = cartData.filter((item) => {
-        const checkedList = checkboxList
-          .filter((cbx) => Boolean(cbx.val))
-          .map((cbx) => cbx.id);
-        return checkedList.includes(item['msp_id']);
-      });
-      // .map((item) => item['msp_id']);
+  const handleMakeOrder = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    console.log(checkboxList);
+
+    const filteredCartData = cartData.filter((item) => {
+      const checkedList = checkboxList
+        .filter((cbx) => Boolean(cbx.val))
+        .map((cbx) => cbx.id);
+      return checkedList.includes(item['msp_id']);
+    });
+
+    if (filteredCartData.length) {
       const totalSum = filteredCartData.reduce(
         (accumulator, currentValue) =>
           accumulator + Number(currentValue['price']) * currentValue['amount'],
@@ -189,7 +166,6 @@ const CartForm = () => {
         totalSum,
         deliveryInfo: formValues,
       };
-
       try {
         setLoading(true);
 
@@ -201,100 +177,70 @@ const CartForm = () => {
           },
         });
 
-        await handleDeleteChecked();
+        res.ok && (await handleDeleteChecked());
 
         setLoading(false);
-        //   if (!res.ok) {
-        //     setError((await res.json()).message);
-        //     return;
-        //   }
       } catch (error: any) {
         setLoading(false);
         setError(error);
       }
 
       dispatch(toggleCartModal());
-      console.log(orderDetails);
+      document.body.style.overflow = 'unset';
+    } else {
+      setError('Товары не выбраны');
+      setTimeout(() => setError(''), 5000);
     }
   };
 
-  // const allCheckboxVals = checkboxList.reduce(
-  //   (accumulator, currentValue) => accumulator + currentValue.x
-  // );
-
-  // const cntChecked = checkboxList.filter((cbx) => cbx.val === true).length;
-  // if (checkboxList.length === cntChecked) {
-  //   setSelectAll(false);
-  // }
-
-  // else {
-  //   const unchecked = checkboxList.filter((checkbox) => checkbox === false);
-  //   if (unchecked) {
-  //     // || cartData.length !== checkboxList.length)
-
-  //     setSelectAll(true);
-  //   }
-  // { userId: session?.user?.id });
-
   return (
     <>
-      {/* <div style={{ display: 'flex', overflow: 'auto' }}> */}
-      {/* <div>
-        <CollapsibleWrapper>Test434563545</CollapsibleWrapper>
-      </div> */}
       {cartData && (
-        <div style={{ width: '100%', height: '100%', margin: '0 0 2em 1em' }}>
-          <div className={styles.cart_header}>
+        <div className={styles['order-form']}>
+          <div className={styles['cart-header']}>
             <h1>Оформление заказа</h1>
           </div>
 
-          <div className={styles.cart_form}>
-            <div
-              style={{
-                display: 'flex',
-                overflow: 'auto',
-                flexDirection: 'column',
-                height: '100%',
-                gap: '2em',
-                marginLeft: '1em',
-              }}
-            >
+          <div className={styles['cart-form-container']}>
+            <div className={styles['cart-form']}>
               <CollapsibleWrapper
                 visibleState={containersState.isCartOpen}
                 visibilityChanger={handleContainerToggle}
                 id="cart"
                 containerLabel="Корзина"
               >
-                <div className={styles.global_cart_actions}>
-                  <div>
-                    <button
-                      className={styles['btn-check-all']}
-                      onClick={handleSelectAll}
-                    >
-                      Выбрать все
-                    </button>
+                <div className={styles['cart-content']}>
+                  <div className={styles['global-cart-actions']}>
+                    <div>
+                      <button
+                        className={styles['btn-check-all']}
+                        onClick={handleSelectAll}
+                      >
+                        Выбрать все
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        className={styles['btn-delete-all']}
+                        onClick={handleDeleteChecked}
+                      >
+                        Удалить выбранные
+                      </button>
+                    </div>
                   </div>
-                  <div>
-                    <button
-                      className={styles['btn-delete-all']}
-                      onClick={handleDeleteChecked}
-                    >
-                      Удалить выбранные
-                    </button>
-                  </div>
-                </div>
 
-                <div className={styles.container_cart_products}>
-                  {cartData.map((item: any) => (
-                    <CartItem
-                      key={item['msp_id']}
-                      data={item}
-                      reload={setReload}
-                      selectAll={selectAll}
-                      // setCheckboxList={setCheckboxList}
-                      setSelectAll={setSelectAll}
-                    ></CartItem>
-                  ))}
+                  <div className={styles['container-cart-products']}>
+                    {!cartData ?? <div>Товары не выбраны</div>}
+                    {cartData.map((item: any) => (
+                      <CartItem
+                        key={item['msp_id']}
+                        data={item}
+                        reload={setReload}
+                        selectAll={selectAll}
+                        setSelectAll={setSelectAll}
+                      ></CartItem>
+                    ))}
+                  </div>
                 </div>
               </CollapsibleWrapper>
 
@@ -305,14 +251,16 @@ const CartForm = () => {
                 containerLabel="Информация для доставки"
               >
                 <DeliveryInfoForm
+                  formRef={formRef}
                   formValues={formValues}
                   onChangeFormValues={setFormValues}
+                  onMakeOrder={handleMakeOrder}
                 />
               </CollapsibleWrapper>
             </div>
 
-            <div className={styles.order_details}>
-              <div className={styles.itog}>
+            <div className={styles['order-details']}>
+              <div className={styles['itog']}>
                 <div>Итого</div>
                 <div>
                   {`${new Intl.NumberFormat('ru').format(
@@ -333,41 +281,39 @@ const CartForm = () => {
                   )} ₽`}
                 </div>
               </div>
-              <div>
+              <div className={styles['btn-next-container']}>
                 {(containersState.isCartOpen ||
                   containersState.isDeliveryOpen) && (
-                  <button
-                    className={styles['btn-next']}
-                    onClick={() => {
-                      containersState.isCartOpen
-                        ? handleContainerToggle('deliveryInfo')
-                        : containersState.isDeliveryOpen
-                        ? handleMakeOrder()
-                        : null;
-                    }}
-                  >
-                    {containersState.isCartOpen
-                      ? 'Далее'
-                      : containersState.isDeliveryOpen
-                      ? 'Подтвердить заказ'
-                      : ''}
-                  </button>
+                  <>
+                    {containersState.isCartOpen ? (
+                      <button
+                        key="next"
+                        className={styles['btn-next']}
+                        onClick={() => handleContainerToggle('deliveryInfo')}
+                      >
+                        Далее
+                      </button>
+                    ) : (
+                      <button
+                        key="makeOrder"
+                        className={styles['btn-next']}
+                        onClick={() => formRef.current.requestSubmit()}
+                      >
+                        Подтвердить заказ
+                      </button>
+                    )}
+
+                    {error && (
+                      <div className={styles['error-msg']}>{error}</div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* </div> */}
     </>
   );
 };
 export default CartForm;
-
-//   onClick={() => {
-//     dispatch(toggleCartModal());
-//     dispatch(toggleOrderModal());
-//   }}
-// >
-//   Перейти к оформлению

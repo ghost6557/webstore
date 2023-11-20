@@ -1,30 +1,39 @@
-.item_container {
+.item-container {
   display: grid;
   grid-template-columns: 0.45fr 0.275fr 0.275fr;
-  column-gap: 2em;
+  column-gap: 2rem;
   grid-template-rows: auto;
   justify-content: center;
   align-items: center;
-  padding: 0em 0em 0em 2em;
+  padding: 0rem 0rem 0rem 2rem;
 }
 
-.item_desc {
+.item-desc {
   display: flex;
-  //   grid-template-columns: 0.6fr 0.4fr;
-  column-gap: 2em;
-  //   grid-template-rows: auto;
-  //   justify-content: center;
-  //   align-items: center;
+  column-gap: 2rem;
 }
 
-.item_img {
+.item-img {
   flex: 1 1 15%;
   width: 5%;
   height: 5%;
 }
 
-.item_name {
+.item-name {
   display: flex;
   align-items: center;
   flex: 1 1 85%;
+}
+
+.item-amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
 }

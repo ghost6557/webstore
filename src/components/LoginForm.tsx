@@ -2,8 +2,8 @@
 
 import { signIn } from 'next-auth/react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
 import { ChangeEvent, useState } from 'react';
+
 import InputField from './InputField';
 import styles from './LoginForm.module.scss';
 
@@ -15,7 +15,6 @@ const LoginForm = () => {
   const [formValues, setFormValues] = useState(initialForm);
   const [error, setError] = useState('');
   const [showLogin, setShowLogin] = useState(false);
-
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
 
@@ -29,12 +28,10 @@ const LoginForm = () => {
           redirect: false,
           email: formValues.email,
           password: formValues.password,
-          // callbackUrl,
         });
 
         setLoading(false);
 
-        // console.log(res);
         if (!res?.error) {
           document.body.style.overflow = 'unset';
           router.push(callbackUrl);
@@ -70,11 +67,13 @@ const LoginForm = () => {
 
   return (
     <div className={styles['login-container']}>
-      <h1>{showLogin ? 'Вход в аккаунт' : 'Регистрация'}</h1>
-      <form onSubmit={handleSubmit}>
-        {error && <p className={''}>{error}</p>}
-        {!showLogin && (
-          <div className={''}>
+      <div className={styles['h1']}>
+        <h1>{showLogin ? 'Вход в аккаунт' : 'Регистрация'}</h1>
+      </div>
+      <form className={styles['form-container']} onSubmit={handleSubmit}>
+        {error && <p>{error}</p>}
+        <div>
+          {!showLogin && (
             <InputField
               required={true}
               name="name"
@@ -83,17 +82,7 @@ const LoginForm = () => {
               id="login"
               label="Логин"
             />
-            {/* <input
-              required
-              type="name"
-              name="name"
-              value={formValues.name}
-              onChange={handleChange}
-              placeholder="Name"
-              className={''} */}
-          </div>
-        )}
-        <div className={''}>
+          )}
           <InputField
             required={true}
             name="email"
@@ -103,17 +92,6 @@ const LoginForm = () => {
             label="Email"
             type="email"
           />
-          {/* <input
-            required
-            type="email"
-            name="email"
-            value={formValues.email}
-            onChange={handleChange}
-            placeholder="Email address"
-            className={''}
-          /> */}
-        </div>
-        <div className={''}>
           <InputField
             required={true}
             name="password"
@@ -123,20 +101,10 @@ const LoginForm = () => {
             label="Пароль"
             type="password"
           />
-          {/* <input
-            required
-            type="password"
-            name="password"
-            value={formValues.password}
-            onChange={handleChange}
-            placeholder="Password"
-            className={''}
-          /> */}
         </div>
         <div className={styles['container-btn-submit']}>
           <button
             type="submit"
-            // style={{ backgroundColor: `${loading ? '#ccc' : '#3446eb'}` }}
             className={styles['btn-submit']}
             disabled={loading}
           >
@@ -144,6 +112,7 @@ const LoginForm = () => {
           </button>
         </div>
       </form>
+
       <div className={styles['form-footer']}>
         <div>
           {!showLogin ? 'Есть аккаунт? ' : ''}

@@ -17,8 +17,6 @@ export const checkedItemsSlice = createSlice({
   initialState: initialCheckedItemsState,
   reducers: {
     updateItemsList: (state, action) => {
-      console.log('ACTION PAYLOAD REDUX');
-      console.log(action.payload);
       const { id: checkboxId, val: checkboxVal } = action.payload;
       let updatedList: any[] = [];
       if (state.itemsList.length) {
@@ -40,13 +38,10 @@ export const checkedItemsSlice = createSlice({
           { id: checkboxId, val: checkboxVal },
         ];
       }
-      // console.log(updatedList);
 
       state.itemsList = updatedList;
     },
     updateItemsListOnDelete: (state, action) => {
-      console.log('DELETE REDUX');
-      console.log(action.payload);
       state.itemsList = action.payload;
     },
   },

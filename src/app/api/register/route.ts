@@ -4,8 +4,6 @@ import { NextResponse, NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    console.log('Register route');
-
     const { name, email, password } = (await req.json()) as {
       name: string;
       email: string;
@@ -25,8 +23,6 @@ export async function POST(req: NextRequest) {
         password: hashedPassword,
       },
     });
-
-    console.log(user);
 
     return NextResponse.json({
       user: {

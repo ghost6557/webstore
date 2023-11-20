@@ -1,13 +1,10 @@
-.TextField {
+.textfield {
   position: relative;
   line-height: 0;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  margin: 1.8em;
+  margin: 1.8rem;
 }
 
-.TextField-label {
+.textfield-label {
   font: inherit;
   transition: transform 200ms;
   transform-origin: top left;
@@ -18,28 +15,28 @@
   position: absolute;
 }
 
-.TextField--isEmpty .TextField-label {
-  transform: translate(0, 0.5em) scale(1);
+.textfield--isempty .textfield-label {
+  transform: translate(0, 0.5rem) scale(1);
   opacity: 0.5;
 }
 
-.TextField--isFilled .TextField-label {
-  transform: translate(0, -1em) scale(0.8);
+.textfield--isfilled .textfield-label {
+  transform: translate(0, -1rem) scale(0.8);
 }
 
-.TextField-input {
+.textfield-input {
   margin: 0;
-  height: 2em;
+  height: 2rem;
   font: inherit;
-  box-sizing: content-box; /* box-sizing is set to content-box to get height of inputs to be consistent across browsers */
+  box-sizing: content-box;
   line-height: 1;
   border: none;
-  border-bottom: 2px solid gray;
+  border-bottom: 0.2rem solid gray;
   outline: none;
   padding: 0;
   width: 100%;
 }
 
-.TextField-input:focus {
+.textfield-input:focus {
   border-bottom-color: black;
 }
